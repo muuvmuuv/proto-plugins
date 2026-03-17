@@ -8,7 +8,9 @@ tools. Requires proto v2 / moon v2.
 | Tool | Description | Plugin |
 | --- | --- | --- |
 | [Gitleaks](https://github.com/gitleaks/gitleaks) | Secret scanner for git repos | `gitleaks_tool` |
+| [jq](https://github.com/jqlang/jq) | JSON processor | `jq_tool` |
 | [just](https://github.com/casey/just) | Command runner | `just_tool` |
+| [yq](https://github.com/mikefarah/yq) | YAML/JSON/XML processor | `yq_tool` |
 
 ## Usage
 
@@ -17,7 +19,9 @@ Add the plugin to your `.prototools`:
 ```toml
 [plugins]
 gitleaks = "github://muuvmuuv/proto-plugins/gitleaks_tool"
+jq = "github://muuvmuuv/proto-plugins/jq_tool"
 just = "github://muuvmuuv/proto-plugins/just_tool"
+yq = "github://muuvmuuv/proto-plugins/yq_tool"
 ```
 
 Then install:

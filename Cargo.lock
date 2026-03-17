@@ -2114,6 +2114,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "jq_tool"
+version = "0.1.0"
+dependencies = [
+ "extism-pdk",
+ "proto_pdk",
+ "proto_pdk_test_utils",
+ "starbase_sandbox",
+ "tokio",
+]
+
+[[package]]
 name = "js-sys"
 version = "0.3.91"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6055,6 +6066,17 @@ dependencies = [
  "quote",
  "syn",
  "synstructure",
+]
+
+[[package]]
+name = "yq_tool"
+version = "0.1.0"
+dependencies = [
+ "extism-pdk",
+ "proto_pdk",
+ "proto_pdk_test_utils",
+ "starbase_sandbox",
+ "tokio",
 ]
 
 [[package]]

@@ -18,11 +18,11 @@ build-release:
 
 # Run all tests (builds WASM first)
 test: build
-    cargo test
+    cargo test --tests
 
 # Run tests for a specific tool
 test-tool tool: build
-    cargo test -p {{tool}}_tool
+    cargo test --tests -p {{tool}}_tool
 
 # Check code compiles without building
 check:

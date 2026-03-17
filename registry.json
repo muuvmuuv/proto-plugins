@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/moonrepo/proto/master/registry/schema.json",
+  "$comment": "Entries for https://github.com/moonrepo/proto/blob/master/registry/data/third-party.json",
+  "version": 1,
+  "plugins": [
+    {
+      "id": "gitleaks",
+      "locator": "github://muuvmuuv/proto-plugins/gitleaks_tool",
+      "format": "wasm",
+      "name": "Gitleaks",
+      "description": "A fast, light-weight, portable, and open-source secret scanner for Git repositories, files, and directories.",
+      "author": "muuvmuuv",
+      "homepageUrl": "https://github.com/gitleaks/gitleaks",
+      "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "bins": [
+        "gitleaks"
+      ]
+    },
+    {
+      "id": "jq",
+      "locator": "github://muuvmuuv/proto-plugins/jq_tool",
+      "format": "wasm",
+      "name": "jq",
+      "description": "A lightweight and flexible command-line JSON processor.",
+      "author": "muuvmuuv",
+      "homepageUrl": "https://jqlang.github.io/jq/",
+      "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "bins": [
+        "jq"
+      ]
+    },
+    {
+      "id": "just",
+      "locator": "github://muuvmuuv/proto-plugins/just_tool",
+      "format": "wasm",
+      "name": "just",
+      "description": "A handy way to save and run project-specific commands.",
+      "author": "muuvmuuv",
+      "homepageUrl": "https://github.com/casey/just",
+      "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "bins": [
+        "just"
+      ]
+    },
+    {
+      "id": "yq",
+      "locator": "github://muuvmuuv/proto-plugins/yq_tool",
+      "format": "wasm",
+      "name": "yq",
+      "description": "A portable command-line YAML, JSON, XML, CSV, TOML, and properties processor.",
+      "author": "muuvmuuv",
+      "homepageUrl": "https://github.com/mikefarah/yq",
+      "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "bins": [
+        "yq"
+      ]
+    }
+  ]
+}

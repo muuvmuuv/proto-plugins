@@ -1,5 +1,5 @@
-gitleaks = "*"
-just = "*"
+gitleaks = "8.30.0"
+just = "1.47.1"
 
 [plugins]
 gitleaks = "file://./target/wasm32-wasip1/debug/gitleaks_tool.wasm"

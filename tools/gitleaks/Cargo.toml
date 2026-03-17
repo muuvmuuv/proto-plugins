@@ -11,6 +11,7 @@ crate-type = ["cdylib"]
 [dependencies]
 extism-pdk = { workspace = true }
 proto_pdk = { workspace = true }
+serde = { workspace = true }
 
 [dev-dependencies]
 proto_pdk_test_utils = { workspace = true }

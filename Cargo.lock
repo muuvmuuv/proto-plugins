@@ -2115,7 +2115,7 @@ dependencies = [
 
 [[package]]
 name = "jq_tool"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
@@ -2159,7 +2159,7 @@ dependencies = [
 
 [[package]]
 name = "just_tool"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
@@ -6070,7 +6070,7 @@ dependencies = [
 
 [[package]]
 name = "yq_tool"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "extism-pdk",
  "proto_pdk",

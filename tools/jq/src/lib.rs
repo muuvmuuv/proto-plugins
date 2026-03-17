@@ -59,6 +59,9 @@ pub fn download_prebuilt(
             "https://github.com/jqlang/jq/releases/download/jq-{version}/{filename}"
         ),
         download_name: Some(filename.to_string()),
+        checksum_url: Some(format!(
+            "https://github.com/jqlang/jq/releases/download/jq-{version}/sha256sum.txt"
+        )),
         ..DownloadPrebuiltOutput::default()
     }))
 }

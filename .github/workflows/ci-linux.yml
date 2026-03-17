@@ -1,0 +1,22 @@
+name: CI (Linux)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: moonrepo/setup-rust@v1
+        with:
+          cache: false
+          targets: wasm32-wasip1
+      - uses: moonrepo/setup-proto@v1
+      - name: Build WASM plugins
+        run: cargo build --target wasm32-wasip1
+      - name: Run tests
+        run: cargo test

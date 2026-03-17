@@ -1,6 +1,6 @@
 # Proto WASM Plugins
 
-[![CI](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/github/license/muuvmuuv/proto-plugins)](LICENSE) [![GitHub downloads](https://img.shields.io/github/downloads/muuvmuuv/proto-plugins/total)](https://github.com/muuvmuuv/proto-plugins/releases)
+[![Linux](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-linux.yml/badge.svg)](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-linux.yml) [![macOS](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-macos.yml/badge.svg)](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-macos.yml) [![Windows](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-windows.yml/badge.svg)](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-windows.yml) [![License: MIT](https://img.shields.io/github/license/muuvmuuv/proto-plugins)](LICENSE) [![GitHub downloads](https://img.shields.io/github/downloads/muuvmuuv/proto-plugins/total)](https://github.com/muuvmuuv/proto-plugins/releases)
 
 A collection of [proto](https://moonrepo.dev/proto) WASM plugins for managing CLI
 tools. Requires proto v2 / moon v2.

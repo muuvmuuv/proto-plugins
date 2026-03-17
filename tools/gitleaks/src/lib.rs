@@ -1,23 +1,8 @@
 use extism_pdk::*;
 use proto_pdk::*;
-use serde::Deserialize;
 use std::collections::HashMap;
 
 static NAME: &str = "Gitleaks";
-
-#[derive(Deserialize)]
-struct GithubRelease {
-    tag_name: String,
-    prerelease: bool,
-    draft: bool,
-    assets: Vec<GithubAsset>,
-}
-
-#[derive(Deserialize)]
-struct GithubAsset {
-    #[allow(dead_code)]
-    name: String,
-}
 
 #[plugin_fn]
 pub fn register_tool(Json(_): Json<RegisterToolInput>) -> FnResult<Json<RegisterToolOutput>> {
@@ -32,16 +17,14 @@ pub fn register_tool(Json(_): Json<RegisterToolInput>) -> FnResult<Json<Register
 
 #[plugin_fn]
 pub fn load_versions(Json(_): Json<LoadVersionsInput>) -> FnResult<Json<LoadVersionsOutput>> {
-    let releases: Vec<GithubRelease> =
-        fetch_json("https://api.github.com/repos/gitleaks/gitleaks/releases?per_page=100")?;
-
-    let versions = releases
-        .into_iter()
-        .filter(|r| !r.prerelease && !r.draft && !r.assets.is_empty())
-        .filter_map(|r| r.tag_name.strip_prefix("v").map(|v| v.to_owned()))
+    let tags = load_git_tags("https://github.com/gitleaks/gitleaks")?
+        .iter()
+        .filter_map(|tag| tag.strip_prefix("v"))
+        .filter(|tag| Version::parse(tag).is_ok())
+        .map(|tag| tag.to_owned())
         .collect::<Vec<_>>();
 
-    Ok(Json(LoadVersionsOutput::from(versions)?))
+    Ok(Json(LoadVersionsOutput::from(tags)?))
 }
 
 #[plugin_fn]
@@ -117,6 +100,6 @@ mod tests {
 
     generate_download_install_tests!("gitleaks", "8.30.0");
     generate_resolve_versions_tests!("gitleaks", {
-        "8.30" => "8.30.0",
+        "8.24" => "8.24.3",
     });
 }

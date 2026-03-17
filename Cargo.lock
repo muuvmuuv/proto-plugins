@@ -1508,12 +1508,11 @@ dependencies = [
 
 [[package]]
 name = "gitleaks_tool"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
  "proto_pdk_test_utils",
- "serde",
  "starbase_sandbox",
  "tokio",
 ]

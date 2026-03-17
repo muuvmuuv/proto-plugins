@@ -1,0 +1,19 @@
+[workspace]
+resolver = "2"
+members = ["tools/*"]
+
+[workspace.dependencies]
+extism-pdk = "1.4.1"
+proto_pdk = "0.32.7"
+proto_pdk_api = "0.31.7"
+proto_pdk_test_utils = "0.43.6"
+serde = { version = "1", features = ["derive"] }
+starbase_sandbox = "0.10.5"
+tokio = { version = "1", features = ["full"] }
+
+[profile.release]
+codegen-units = 1
+debug = false
+lto = true
+opt-level = "s"
+panic = "abort"

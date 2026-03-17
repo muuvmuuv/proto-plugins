@@ -1,0 +1,6 @@
+gitleaks = "*"
+just = "*"
+
+[plugins]
+gitleaks = "file://./target/wasm32-wasip1/debug/gitleaks_tool.wasm"
+just = "file://./target/wasm32-wasip1/debug/just_tool.wasm"

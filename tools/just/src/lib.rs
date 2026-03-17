@@ -85,14 +85,6 @@ pub fn locate_executables(
     }))
 }
 
-#[plugin_fn]
-pub fn detect_version_files(_: ()) -> FnResult<Json<DetectVersionOutput>> {
-    Ok(Json(DetectVersionOutput {
-        files: vec![".just-version".into()],
-        ignore: vec![],
-    }))
-}
-
 #[cfg(test)]
 mod tests {
     use proto_pdk_test_utils::*;

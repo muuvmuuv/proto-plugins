@@ -12,6 +12,7 @@
       "author": "muuvmuuv",
       "homepageUrl": "https://github.com/gitleaks/gitleaks",
       "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "devicon": "git",
       "bins": [
         "gitleaks"
       ]
@@ -25,6 +26,7 @@
       "author": "muuvmuuv",
       "homepageUrl": "https://jqlang.github.io/jq/",
       "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "devicon": "json",
       "bins": [
         "jq"
       ]
@@ -38,6 +40,7 @@
       "author": "muuvmuuv",
       "homepageUrl": "https://github.com/casey/just",
       "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "devicon": "bash",
       "bins": [
         "just"
       ]
@@ -51,6 +54,7 @@
       "author": "muuvmuuv",
       "homepageUrl": "https://github.com/mikefarah/yq",
       "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "devicon": "yaml",
       "bins": [
         "yq"
       ]

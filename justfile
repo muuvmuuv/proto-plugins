@@ -1,6 +1,13 @@
 # Detect proto-shim location for tests (needed when proto is installed via Homebrew)
 export PROTO_LOOKUP_DIR := `dirname "$(which proto-shim 2>/dev/null || echo /dev/null)"`
 
+# Initial project setup: install dependencies, build plugins, and configure git hooks
+setup:
+    rustup show
+    cargo build --target wasm32-wasip1
+    proto use
+    lefthook install
+
 # Build all WASM plugins
 build:
     cargo build --target wasm32-wasip1

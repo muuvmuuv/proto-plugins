@@ -100,10 +100,14 @@ pub fn locate_executables(
         _ => unreachable!(),
     };
 
-    // The .gz archive unpacks to `lefthook_{version}_{os}_{arch}`
-    let exe_name = env
-        .os
-        .get_exe_name(format!("lefthook_{version}_{os}_{arch}"));
+    let exe_name = if env.os == HostOS::Windows {
+        // Windows downloads a direct executable, which keeps the release asset name.
+        format!("lefthook_{version}_{os}_{arch}.exe")
+    } else {
+        // Non-Windows `.gz` binaries keep their release filename after unpacking.
+        env.os
+            .get_exe_name(format!("lefthook_{version}_{os}_{arch}"))
+    };
 
     Ok(Json(LocateExecutablesOutput {
         exes: HashMap::from_iter([("lefthook".into(), ExecutableConfig::new_primary(exe_name))]),

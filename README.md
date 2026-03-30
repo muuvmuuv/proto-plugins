@@ -36,6 +36,33 @@ proto install just
 proto install lefthook
 ```
 
+### Direct download links
+
+The `github://` locator requires proto to query the GitHub API to resolve plugin
+versions. In CI environments without authentication, this can fail due to
+[rate limiting](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api)
+(60 requests/hour for unauthenticated requests).
+
+To avoid this, you can reference the WASM files directly by URL:
+
+```toml
+[plugins]
+gitleaks = "https://github.com/muuvmuuv/proto-plugins/releases/download/gitleaks_tool-v0.2.0/gitleaks_tool.wasm"
+jq = "https://github.com/muuvmuuv/proto-plugins/releases/download/jq_tool-v0.2.0/jq_tool.wasm"
+just = "https://github.com/muuvmuuv/proto-plugins/releases/download/just_tool-v0.2.0/just_tool.wasm"
+lefthook = "https://github.com/muuvmuuv/proto-plugins/releases/download/lefthook_tool-v0.1.0/lefthook_tool.wasm"
+yq = "https://github.com/muuvmuuv/proto-plugins/releases/download/yq_tool-v0.2.0/yq_tool.wasm"
+```
+
+This downloads the WASM file directly without any GitHub API calls for plugin
+resolution. Note that you will need to update the URLs manually when upgrading
+plugin versions.
+
+> [!TIP]
+> If you prefer the `github://` locator, set the `GITHUB_TOKEN` environment
+> variable in CI to get 5,000 requests/hour instead of 60. This also benefits
+> the plugins themselves, which call the GitHub API to resolve tool versions.
+
 ## Development
 
 ### Prerequisites

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(ls:*)",
+      "WebFetch(domain:moonrepo.dev)",
+      "Bash(gh api:*)",
+      "WebSearch",
+      "Bash(curl -sv https://api.github.com/repos/muuvmuuv/proto-plugins/tags)",
+      "Bash(gh search:*)",
+      "Bash(gh issue:*)",
+      "Bash(gh release:*)",
+      "Bash(gh pr:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)"
+    ]
+  }
+}

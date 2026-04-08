@@ -2,7 +2,7 @@ use proto_pdk_test_utils::*;
 
 generate_download_install_tests!("yq", "4.52.4");
 generate_resolve_versions_tests!("yq", {
-    "4.52" => "4.52.4",
+    "4.44" => "4.44.6",
 });
 
 /// Duplicated from lib.rs for testing since cdylib crates cannot be linked by test binaries.

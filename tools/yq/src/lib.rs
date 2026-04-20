@@ -81,13 +81,16 @@ pub fn download_prebuilt(
         _ => unreachable!(),
     };
 
-    let ext = if env.os == HostOS::Windows {
-        "zip"
-    } else {
-        "tar.gz"
-    };
-
-    let filename = format!("yq_{os}_{arch}.{ext}");
+    // yq publishes a raw single-file binary alongside the archive
+    // (e.g. `yq_darwin_arm64` on unix, `yq_windows_amd64.exe` on windows).
+    //
+    // We download the raw binary rather than the tar.gz / zip so that proto's
+    // default non-archive install path renames it to `<install_dir>/yq`
+    // automatically. If we downloaded the archive, the extracted binary would
+    // keep its platform-suffixed name (e.g. `yq_darwin_arm64`) and `proto activate`
+    // wouldn't add the install dir to PATH — forcing invocations through the
+    // shim, which mangles shell-special characters in arguments.
+    let filename = env.os.get_exe_name(format!("yq_{os}_{arch}"));
 
     // yq publishes a non-standard multi-hash checksums file that proto cannot parse.
     // We fetch it ourselves and extract the SHA-256 hash for the target file.
@@ -115,24 +118,11 @@ pub fn locate_executables(
 ) -> FnResult<Json<LocateExecutablesOutput>> {
     let env = get_host_environment()?;
 
-    let os = match env.os {
-        HostOS::Linux => "linux",
-        HostOS::MacOS => "darwin",
-        HostOS::Windows => "windows",
-        _ => unreachable!(),
-    };
-
-    let arch = match env.arch {
-        HostArch::X64 => "amd64",
-        HostArch::Arm64 => "arm64",
-        _ => unreachable!(),
-    };
-
-    // The archive contains `yq_{os}_{arch}` (e.g. `yq_darwin_arm64`)
-    let exe_name = env.os.get_exe_name(format!("yq_{os}_{arch}"));
-
     Ok(Json(LocateExecutablesOutput {
-        exes: HashMap::from_iter([("yq".into(), ExecutableConfig::new_primary(exe_name))]),
+        exes: HashMap::from_iter([(
+            "yq".into(),
+            ExecutableConfig::new_primary(env.os.get_exe_name("yq")),
+        )]),
         ..LocateExecutablesOutput::default()
     }))
 }

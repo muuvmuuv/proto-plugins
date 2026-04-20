@@ -51,7 +51,7 @@ gitleaks = "https://github.com/muuvmuuv/proto-plugins/releases/download/gitleaks
 jq = "https://github.com/muuvmuuv/proto-plugins/releases/download/jq_tool-v0.2.0/jq_tool.wasm"
 just = "https://github.com/muuvmuuv/proto-plugins/releases/download/just_tool-v0.2.0/just_tool.wasm"
 lefthook = "https://github.com/muuvmuuv/proto-plugins/releases/download/lefthook_tool-v0.1.0/lefthook_tool.wasm"
-yq = "https://github.com/muuvmuuv/proto-plugins/releases/download/yq_tool-v0.2.0/yq_tool.wasm"
+yq = "https://github.com/muuvmuuv/proto-plugins/releases/download/yq_tool-v0.3.0/yq_tool.wasm"
 ```
 
 This downloads the WASM file directly without any GitHub API calls for plugin
@@ -159,10 +159,45 @@ release with the `.wasm` asset attached.
 
 #### Tests fail with `MissingToolExecutable`
 
-The executable name in `locate_executables` must match the actual filename inside
-the downloaded archive. For example, yq's archive contains `yq_darwin_arm64`, not
-`yq`. Use `get_host_environment()` to construct the correct platform-specific
-name.
+The file that `locate_executables` declares as the executable must actually exist
+in the install dir after install. If the upstream release asset is a
+platform-suffixed binary (e.g. `yq_darwin_arm64`), you have two options:
+
+1. **Preferred:** if the project also publishes a raw single-file binary,
+   download that instead of the archive and name it after the tool. proto's
+   non-archive install path automatically copies it to `<install_dir>/<tool>`.
+   (This is what `yq_tool` does.)
+2. Implement the `unpack_archive` hook to extract the archive and rename the
+   binary yourself.
+
+Do **not** rely on the PDK's `post_install` hook for this — as of
+`proto_core` 0.55/0.56 it is declared but never invoked by the core.
+
+#### `which <tool>` resolves to `~/.proto/shims/<tool>` and complex args break
+
+`proto activate` adds a tool's install dir to `PATH` only when the dir contains
+a file whose name matches the tool id. If the extracted binary has a
+platform-suffix (e.g. `yq_darwin_arm64`), activate skips the install dir and
+invocations fall through to `~/.proto/shims/<tool>`. The `proto-shim` binary
+in proto ≤ 0.56.x routes commands via `bash -c <flattened-string>`, which
+mangles shell-special characters like `( )`, `|`, `|=`, `'` in arguments:
+
+```
+bash: -c: line 0: syntax error near unexpected token `('
+```
+
+Fix it on the plugin side by making the install dir contain a tool-named file
+(see the `MissingToolExecutable` answer above). Do not try to work around it in
+user code.
+
+#### After changing `download_prebuilt`, installs fail with `mismatched_checksum`
+
+proto persists the download URL and checksum for each installed version in
+`~/.proto/tools/<tool>/manifest.json` (the "lockfile"). Upgrading a plugin that
+changes the URL or checksum format does **not** invalidate this file, so the
+next install compares the fresh download against a stale expected hash. Users
+need to `proto uninstall <tool> <ver>` followed by `proto install <tool> <ver>`
+once per installed version.
 
 #### Tests fail with `assertion failed: shim.path.exists()`
 

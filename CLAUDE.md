@@ -76,3 +76,7 @@ architectural fixes (e.g. download a differently-named asset) over shelling out.
 - `yq`: non-standard multi-hash file (30+ columns per row). The plugin fetches
   and parses it to extract column index 18 (SHA-256). Raw binary lookup matches
   row `yq_<os>_<arch>`; don't accidentally match the `.tar.gz` row.
+- `sfw`: no upstream checksum file at all. The plugin omits the `checksum`
+  field; integrity comes from HTTPS to github.com. Per-asset SHA-256 digests
+  exist on the GitHub Releases REST API (`digest: sha256:...` field) if we
+  ever want to add verification later.

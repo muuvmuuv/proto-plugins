@@ -2,6 +2,7 @@ gitleaks = "8.30.0"
 jq = "1.8.1"
 just = "1.47.1"
 lefthook = "2.1.4"
+sfw = "1.10.0"
 yq = "4.52.4"
 
 [plugins]
@@ -9,4 +10,5 @@ gitleaks = "file://./target/wasm32-wasip1/debug/gitleaks_tool.wasm"
 jq = "file://./target/wasm32-wasip1/debug/jq_tool.wasm"
 just = "file://./target/wasm32-wasip1/debug/just_tool.wasm"
 lefthook = "file://./target/wasm32-wasip1/debug/lefthook_tool.wasm"
+sfw = "file://./target/wasm32-wasip1/debug/sfw_tool.wasm"
 yq = "file://./target/wasm32-wasip1/debug/yq_tool.wasm"

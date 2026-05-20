@@ -46,6 +46,20 @@
       ]
     },
     {
+      "id": "sfw",
+      "locator": "github://muuvmuuv/proto-plugins/sfw_tool",
+      "format": "wasm",
+      "name": "Socket Firewall Free",
+      "description": "A lightweight network security proxy that blocks malicious package-manager dependencies before they reach your machine.",
+      "author": "muuvmuuv",
+      "homepageUrl": "https://github.com/SocketDev/sfw-free",
+      "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "devicon": "npm",
+      "bins": [
+        "sfw"
+      ]
+    },
+    {
       "id": "yq",
       "locator": "github://muuvmuuv/proto-plugins/yq_tool",
       "format": "wasm",

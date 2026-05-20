@@ -3769,6 +3769,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "sfw_tool"
+version = "0.1.0"
+dependencies = [
+ "extism-pdk",
+ "proto_pdk",
+ "proto_pdk_test_utils",
+ "starbase_sandbox",
+ "tokio",
+]
+
+[[package]]
 name = "sha-1"
 version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

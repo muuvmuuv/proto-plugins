@@ -13,6 +13,7 @@ tools. Requires proto v2 / moon v2.
 | [jq](https://github.com/jqlang/jq) | JSON processor | `jq_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=jq_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=jq_tool) |
 | [just](https://github.com/casey/just) | Command runner | `just_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=just_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=just_tool) |
 | [lefthook](https://github.com/evilmartians/lefthook) | Git hook manager | `lefthook_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=lefthook_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=lefthook_tool) |
+| [sfw](https://github.com/SocketDev/sfw-free) | Socket Firewall Free, a network security proxy for package managers | `sfw_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=sfw_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=sfw_tool) |
 | [yq](https://github.com/mikefarah/yq) | YAML/JSON/XML processor | `yq_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=yq_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=yq_tool) |
 
 ## Usage
@@ -25,6 +26,7 @@ gitleaks = "github://muuvmuuv/proto-plugins/gitleaks_tool"
 jq = "github://muuvmuuv/proto-plugins/jq_tool"
 just = "github://muuvmuuv/proto-plugins/just_tool"
 lefthook = "github://muuvmuuv/proto-plugins/lefthook_tool"
+sfw = "github://muuvmuuv/proto-plugins/sfw_tool"
 yq = "github://muuvmuuv/proto-plugins/yq_tool"
 ```
 
@@ -51,6 +53,7 @@ gitleaks = "https://github.com/muuvmuuv/proto-plugins/releases/download/gitleaks
 jq = "https://github.com/muuvmuuv/proto-plugins/releases/download/jq_tool-v0.2.0/jq_tool.wasm"
 just = "https://github.com/muuvmuuv/proto-plugins/releases/download/just_tool-v0.2.0/just_tool.wasm"
 lefthook = "https://github.com/muuvmuuv/proto-plugins/releases/download/lefthook_tool-v0.1.0/lefthook_tool.wasm"
+sfw = "https://github.com/muuvmuuv/proto-plugins/releases/download/sfw_tool-v0.1.0/sfw_tool.wasm"
 yq = "https://github.com/muuvmuuv/proto-plugins/releases/download/yq_tool-v0.3.0/yq_tool.wasm"
 ```
 
@@ -120,7 +123,7 @@ push and pull request.
 
 ### Checksum verification
 
-All plugins verify download integrity using SHA-256 checksums. Some tools
+Most plugins verify download integrity using SHA-256 checksums. Some tools
 require special handling:
 
 - **jq, just, gitleaks, lefthook** -- standard `sha256sum.txt` format, handled
@@ -128,6 +131,8 @@ require special handling:
 - **yq** -- publishes a non-standard multi-hash checksums file (30+ algorithms
   per line); the plugin fetches and parses it during download to extract the
   SHA-256 hash
+- **sfw** -- upstream publishes no checksum file, so the plugin relies on
+  HTTPS to github.com for integrity
 
 ### Adding a new plugin
 

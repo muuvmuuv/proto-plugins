@@ -71,8 +71,8 @@ architectural fixes (e.g. download a differently-named asset) over shelling out.
 
 ## Checksum quirks per tool
 
-- `jq`, `just`, `gitleaks`, `lefthook`: standard `sha256sum.txt`, proto handles
-  natively via `checksum_url`.
+- `jq`, `just`, `gitleaks`, `lefthook`, `maestro`: standard `sha256sum.txt`,
+  proto handles natively via `checksum_url`.
 - `yq`: non-standard multi-hash file (30+ columns per row). The plugin fetches
   and parses it to extract column index 18 (SHA-256). Raw binary lookup matches
   row `yq_<os>_<arch>`; don't accidentally match the `.tar.gz` row.

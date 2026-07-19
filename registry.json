@@ -46,6 +46,20 @@
       ]
     },
     {
+      "id": "maestro",
+      "locator": "github://muuvmuuv/proto-plugins/maestro_tool",
+      "format": "wasm",
+      "name": "Maestro",
+      "description": "The easiest way to test your mobile and web apps, end-to-end UI testing for iOS, Android, and web.",
+      "author": "muuvmuuv",
+      "homepageUrl": "https://maestro.dev",
+      "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "devicon": "android",
+      "bins": [
+        "maestro"
+      ]
+    },
+    {
       "id": "sfw",
       "locator": "github://muuvmuuv/proto-plugins/sfw_tool",
       "format": "wasm",

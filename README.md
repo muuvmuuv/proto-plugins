@@ -163,6 +163,14 @@ git push origin main <name>_tool-v<version>
 The GitHub Actions workflow will build the WASM binary, optimize it, and create a
 release with the `.wasm` asset attached.
 
+> [!IMPORTANT]
+> Push **at most three tags per `git push`**. GitHub creates no push events at
+> all when more than three tags arrive at once, so `git push --tags` after a
+> workspace-wide bump lands every tag on the remote and builds nothing. The
+> failure is silent: no workflow run, no release, no error. Recovering means
+> deleting the remote tags and re-pushing in batches, because re-pushing a tag
+> the remote already has is a no-op that fires no event either.
+
 ### FAQ
 
 #### Tests fail with `MissingToolExecutable`

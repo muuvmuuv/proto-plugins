@@ -20,6 +20,16 @@ Build target is `wasm32-wasip1`. Each plugin implements the functions in the
 
 These are load-bearing; re-learning them costs an afternoon.
 
+### Never push more than three tags at once
+
+GitHub creates no push events when more than three tags arrive in a single
+push, so `git push origin main --tags` after a workspace-wide version bump
+lands all seven tags and triggers zero `release.yml` runs. Nothing errors —
+the tags are simply on the remote with no releases behind them. Since this
+repo bumps every crate together whenever the PDK moves, that is the common
+case, not the edge case. Push in batches of three, and check
+`gh run list --workflow=Release` before assuming a release happened.
+
 ### The PDK version is a hard compatibility contract with the proto CLI
 
 Plugin function input crosses the WASM boundary as JSON, so proto adding or

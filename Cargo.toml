@@ -4,11 +4,11 @@ members = ["tools/*"]
 
 [workspace.dependencies]
 extism-pdk = "1.4.1"
-proto_pdk = "0.32.7"
-proto_pdk_api = "0.31.7"
-proto_pdk_test_utils = "0.43.6"
+proto_pdk = "0.34.0"
+proto_pdk_api = "0.33.0"
+proto_pdk_test_utils = "0.48.0"
 serde = { version = "1", features = ["derive"] }
-starbase_sandbox = "0.10.5"
+starbase_sandbox = "0.12.0"
 tokio = { version = "1", features = ["full"] }
 
 [profile.release]

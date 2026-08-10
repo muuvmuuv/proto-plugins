@@ -3,7 +3,7 @@
 [![Linux](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-linux.yml/badge.svg)](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-linux.yml) [![macOS](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-macos.yml/badge.svg)](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-macos.yml) [![Windows](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-windows.yml/badge.svg)](https://github.com/muuvmuuv/proto-plugins/actions/workflows/ci-windows.yml) [![License: MIT](https://img.shields.io/github/license/muuvmuuv/proto-plugins)](LICENSE) [![GitHub downloads](https://img.shields.io/github/downloads/muuvmuuv/proto-plugins/total)](https://github.com/muuvmuuv/proto-plugins/releases)
 
 A collection of [proto](https://moonrepo.dev/proto) WASM plugins for managing CLI
-tools. Requires proto v2 / moon v2.
+tools. Requires proto >= 0.57 / moon v2.
 
 ## Plugins
 
@@ -51,13 +51,13 @@ To avoid this, you can reference the WASM files directly by URL:
 
 ```toml
 [plugins]
-gitleaks = "https://github.com/muuvmuuv/proto-plugins/releases/download/gitleaks_tool-v0.2.0/gitleaks_tool.wasm"
-jq = "https://github.com/muuvmuuv/proto-plugins/releases/download/jq_tool-v0.2.0/jq_tool.wasm"
-just = "https://github.com/muuvmuuv/proto-plugins/releases/download/just_tool-v0.2.0/just_tool.wasm"
-lefthook = "https://github.com/muuvmuuv/proto-plugins/releases/download/lefthook_tool-v0.1.0/lefthook_tool.wasm"
-maestro = "https://github.com/muuvmuuv/proto-plugins/releases/download/maestro_tool-v0.1.0/maestro_tool.wasm"
-sfw = "https://github.com/muuvmuuv/proto-plugins/releases/download/sfw_tool-v0.1.0/sfw_tool.wasm"
-yq = "https://github.com/muuvmuuv/proto-plugins/releases/download/yq_tool-v0.3.0/yq_tool.wasm"
+gitleaks = "https://github.com/muuvmuuv/proto-plugins/releases/download/gitleaks_tool-v0.3.0/gitleaks_tool.wasm"
+jq = "https://github.com/muuvmuuv/proto-plugins/releases/download/jq_tool-v0.3.0/jq_tool.wasm"
+just = "https://github.com/muuvmuuv/proto-plugins/releases/download/just_tool-v0.3.0/just_tool.wasm"
+lefthook = "https://github.com/muuvmuuv/proto-plugins/releases/download/lefthook_tool-v0.2.0/lefthook_tool.wasm"
+maestro = "https://github.com/muuvmuuv/proto-plugins/releases/download/maestro_tool-v0.2.0/maestro_tool.wasm"
+sfw = "https://github.com/muuvmuuv/proto-plugins/releases/download/sfw_tool-v0.2.0/sfw_tool.wasm"
+yq = "https://github.com/muuvmuuv/proto-plugins/releases/download/yq_tool-v0.4.0/yq_tool.wasm"
 ```
 
 This downloads the WASM file directly without any GitHub API calls for plugin
@@ -206,6 +206,22 @@ changes the URL or checksum format does **not** invalidate this file, so the
 next install compares the fresh download against a stale expected hash. Users
 need to `proto uninstall <tool> <ver>` followed by `proto install <tool> <ver>`
 once per installed version.
+
+#### Installs fail with `missing field ...` after a proto upgrade
+
+proto sends plugin function input as JSON that the PDK deserializes into structs,
+so removing or adding a required context field is a breaking change on both
+sides. A plugin built against a PDK older than the running proto fails with
+`missing field <name>` (proto 0.60 dropped `tool_dir`, which older PDKs require);
+a plugin built against a newer PDK than the running proto fails the same way in
+reverse (proto 0.55 predates `working_dir`). Either way the message names the
+field, not the version mismatch.
+
+The fix is always to bump `proto_pdk`, `proto_pdk_api`, and
+`proto_pdk_test_utils` in the workspace `Cargo.toml`, rebuild, and re-release
+every plugin — they share the PDK, so they break together. Keep
+`minimum_proto_version` in `register_tool` honest with the oldest proto the
+current PDK still talks to.
 
 #### Tests fail with `assertion failed: shim.path.exists()`
 

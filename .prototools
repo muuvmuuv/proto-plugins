@@ -1,10 +1,10 @@
-gitleaks = "8.30.0"
-jq = "1.8.1"
-just = "1.47.1"
-lefthook = "2.1.4"
-maestro = "2.6.1"
-sfw = "1.10.0"
-yq = "4.52.4"
+gitleaks = "8.30.1"
+jq = "1.8.2"
+just = "1.58.0"
+lefthook = "2.1.10"
+maestro = "2.8.0"
+sfw = "1.15.0"
+yq = "4.53.3"
 
 [plugins]
 gitleaks = "file://./target/wasm32-wasip1/debug/gitleaks_tool.wasm"

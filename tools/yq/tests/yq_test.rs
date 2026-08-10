@@ -1,6 +1,6 @@
 use proto_pdk_test_utils::*;
 
-generate_download_install_tests!("yq", "4.52.4");
+generate_download_install_tests!("yq", "4.53.3");
 generate_resolve_versions_tests!("yq", {
     "4.44" => "4.44.6",
 });

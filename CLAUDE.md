@@ -20,6 +20,30 @@ Build target is `wasm32-wasip1`. Each plugin implements the functions in the
 
 These are load-bearing; re-learning them costs an afternoon.
 
+### The PDK version is a hard compatibility contract with the proto CLI
+
+Plugin function input crosses the WASM boundary as JSON, so proto adding or
+removing a required context field breaks every plugin built against the other
+side of that change. The symptom is a bare serde error naming the field, with
+no hint that versions are involved:
+
+- proto 0.60 removed `PluginUnresolvedContext.tool_dir` → plugins on
+  `proto_pdk_api` ≤ 0.31 fail `load_versions` with ``missing field `tool_dir` ``.
+- proto ≤ 0.55 predates `working_dir` → plugins on the newer PDK fail with
+  ``missing field `working_dir` ``.
+
+This breaks *installed* users, not just this repo: proto is auto-upgraded by
+`moonrepo/setup-toolchain` and `proto upgrade`, so a proto release can break
+every downstream CI overnight while local machines keep working off the
+`~/.proto/plugins` cache. When it happens, bump `proto_pdk`, `proto_pdk_api`,
+and `proto_pdk_test_utils` together and re-release **all** plugins — they share
+the workspace PDK and break as a set.
+
+Keep `minimum_proto_version` in `register_tool` honest. Establish it by
+installing a plugin against downloaded proto CLI tarballs (bisect the
+releases); note that proto 0.56 can't be used for this, as it blows up on
+long `file://` locator paths for unrelated reasons.
+
 ### PATH activation depends on filename matching the tool id
 
 `proto activate` only adds `~/.proto/tools/<tool>/<ver>/` to `PATH` if that dir

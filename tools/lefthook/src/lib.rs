@@ -59,13 +59,15 @@ pub fn download_prebuilt(
         _ => unreachable!(),
     };
 
-    let ext = if env.os == HostOS::Windows {
-        ".exe"
-    } else {
-        ".gz"
-    };
-
-    let filename = format!("lefthook_{version}_{os}_{arch}{ext}");
+    // lefthook publishes a raw single-file binary alongside the `.gz`
+    // (e.g. `lefthook_2.1.10_Linux_x86_64`). Download the raw one so proto's
+    // non-archive install path renames it to `<install_dir>/lefthook`. The `.gz`
+    // would unpack to the platform-suffixed name instead, which leaves the
+    // install dir without a file matching the tool id — so `proto activate`
+    // skips it and invocations fall through to the shim.
+    let filename = env
+        .os
+        .get_exe_name(format!("lefthook_{version}_{os}_{arch}"));
 
     Ok(Json(DownloadPrebuiltOutput {
         download_url: format!(
@@ -81,36 +83,15 @@ pub fn download_prebuilt(
 
 #[plugin_fn]
 pub fn locate_executables(
-    Json(input): Json<LocateExecutablesInput>,
+    Json(_): Json<LocateExecutablesInput>,
 ) -> FnResult<Json<LocateExecutablesOutput>> {
     let env = get_host_environment()?;
-    let version = &input.context.version;
-
-    let os = match env.os {
-        HostOS::Linux => "Linux",
-        HostOS::MacOS => "MacOS",
-        HostOS::Windows => "Windows",
-        _ => unreachable!(),
-    };
-
-    let arch = match env.arch {
-        HostArch::X64 => "x86_64",
-        HostArch::Arm64 => "arm64",
-        HostArch::X86 => "i386",
-        _ => unreachable!(),
-    };
-
-    let exe_name = if env.os == HostOS::Windows {
-        // Windows downloads a direct executable, which keeps the release asset name.
-        format!("lefthook_{version}_{os}_{arch}.exe")
-    } else {
-        // Non-Windows `.gz` binaries keep their release filename after unpacking.
-        env.os
-            .get_exe_name(format!("lefthook_{version}_{os}_{arch}"))
-    };
 
     Ok(Json(LocateExecutablesOutput {
-        exes: HashMap::from_iter([("lefthook".into(), ExecutableConfig::new_primary(exe_name))]),
+        exes: HashMap::from_iter([(
+            "lefthook".into(),
+            ExecutableConfig::new_primary(env.os.get_exe_name("lefthook")),
+        )]),
         ..LocateExecutablesOutput::default()
     }))
 }

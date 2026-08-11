@@ -1,9 +1,9 @@
 pre-commit:
   commands:
-    check:
-      run: just check
+    lint:
+      run: just lint
 
 pre-push:
   commands:
-    test:
-      run: just test
+    check:
+      run: just check

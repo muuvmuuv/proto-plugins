@@ -108,8 +108,12 @@ This will:
 [Lefthook](https://github.com/evilmartians/lefthook) is configured to run
 automatically:
 
-- **pre-commit**: `just check` (fast compile check)
-- **pre-push**: `just test` (full build + test suite)
+- **pre-commit**: `just lint` (clippy)
+- **pre-push**: `just check` (fast compile check)
+
+Tests are not hooked. They download ~900MB of real release artifacts per run —
+`maestro.zip` is 300MB and two tests fetch it independently — so they run in CI
+on every push and pull request instead.
 
 ### Testing
 

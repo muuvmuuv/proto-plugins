@@ -39,7 +39,7 @@ pub fn download_prebuilt(
         permutations![
             HostOS::Linux => [HostArch::X64, HostArch::Arm64],
             HostOS::MacOS => [HostArch::X64, HostArch::Arm64],
-            HostOS::Windows => [HostArch::X64],
+            HostOS::Windows => [HostArch::X64, HostArch::Arm64],
         ],
     )?;
 
@@ -51,6 +51,7 @@ pub fn download_prebuilt(
         (HostOS::MacOS, HostArch::X64) => "jq-macos-amd64",
         (HostOS::MacOS, HostArch::Arm64) => "jq-macos-arm64",
         (HostOS::Windows, HostArch::X64) => "jq-windows-amd64.exe",
+        (HostOS::Windows, HostArch::Arm64) => "jq-windows-arm64.exe",
         _ => unreachable!(),
     };
 

@@ -1,5 +1,11 @@
-# Detect proto-shim location for tests (needed when proto is installed via Homebrew)
-export PROTO_LOOKUP_DIR := `dirname "$(which proto-shim 2>/dev/null || echo /dev/null)"`
+# Every recipe below is a plain command, so cmd.exe is enough on Windows. Without
+# this, just defaults to `sh` and fails outside Git Bash with "could not find the shell".
+set windows-shell := ["cmd.exe", "/c"]
+
+# Detect proto-shim location for tests (needed when proto is installed via Homebrew).
+# Skipped on Windows: the backtick needs a POSIX shell, and proto-shim is already
+# found via the ~/.proto/bin fallback there.
+export PROTO_LOOKUP_DIR := if os_family() == "windows" { "" } else { `dirname "$(which proto-shim 2>/dev/null || echo /dev/null)"` }
 
 # Initial project setup: install dependencies, build plugins, and configure git hooks
 setup:
@@ -18,11 +24,11 @@ build-release:
 
 # Run all tests (builds WASM first)
 test: build
-    cargo test --tests
+    cargo test --test "*"
 
 # Run tests for a specific tool
 test-tool tool: build
-    cargo test --tests -p {{tool}}_tool
+    cargo test -p {{tool}}_tool --test "*"
 
 # Check code compiles without building
 check:

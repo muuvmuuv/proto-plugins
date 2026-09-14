@@ -60,6 +60,20 @@
       ]
     },
     {
+      "id": "ripwire",
+      "locator": "github://muuvmuuv/proto-plugins/ripwire_tool",
+      "format": "wasm",
+      "name": "ripwire",
+      "description": "The ripgrep of AI context: a CLI and MCP server that maps a codebase for coding agents and checks changes for blast radius, tests to run, and quality deltas.",
+      "author": "muuvmuuv",
+      "homepageUrl": "https://github.com/redhat-et/ripwire",
+      "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "devicon": "cplusplus",
+      "bins": [
+        "ripwire"
+      ]
+    },
+    {
       "id": "sfw",
       "locator": "github://muuvmuuv/proto-plugins/sfw_tool",
       "format": "wasm",

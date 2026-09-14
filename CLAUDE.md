@@ -107,6 +107,8 @@ architectural fixes (e.g. download a differently-named asset) over shelling out.
 
 - `jq`, `just`, `gitleaks`, `lefthook`, `maestro`: standard `sha256sum.txt`,
   proto handles natively via `checksum_url`.
+- `ripwire`: a standard one-line `<asset>.sha256` next to each tarball, also
+  native. No Windows build upstream, so its download tests are `cfg(not(windows))`.
 - `yq`: non-standard multi-hash file (30+ columns per row). The plugin fetches
   and parses it to extract column index 18 (SHA-256). Raw binary lookup matches
   row `yq_<os>_<arch>`; don't accidentally match the `.tar.gz` row.

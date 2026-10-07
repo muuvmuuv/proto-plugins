@@ -178,8 +178,21 @@ pub fn download_prebuilt(
 pub fn locate_executables(
     Json(_): Json<LocateExecutablesInput>,
 ) -> FnResult<Json<LocateExecutablesOutput>> {
+    let exe = ExecutableConfig {
+        // When the C that a weekly V generates fails to compile, V silently compiles again
+        // with V 0.5.2, which it downloads when missing. Switched off, so a weekly build is
+        // one or fails; releases ignore the variable. Only the shim can set it, so the
+        // README asks projects to also set it in `[env]`.
+        shim_env_vars: Some(
+            [("V_MACOS_V3_NO_FALLBACK".into(), "1".into())]
+                .into_iter()
+                .collect(),
+        ),
+        ..ExecutableConfig::new_primary("v")
+    };
+
     Ok(Json(LocateExecutablesOutput {
-        exes: HashMap::from_iter([("v".into(), ExecutableConfig::new_primary("v"))]),
+        exes: HashMap::from_iter([("v".into(), exe)]),
         ..LocateExecutablesOutput::default()
     }))
 }

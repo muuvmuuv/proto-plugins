@@ -62,7 +62,7 @@ lefthook = "https://github.com/muuvmuuv/proto-plugins/releases/download/lefthook
 maestro = "https://github.com/muuvmuuv/proto-plugins/releases/download/maestro_tool-v0.2.0/maestro_tool.wasm"
 ripwire = "https://github.com/muuvmuuv/proto-plugins/releases/download/ripwire_tool-v0.1.0/ripwire_tool.wasm"
 sfw = "https://github.com/muuvmuuv/proto-plugins/releases/download/sfw_tool-v0.2.0/sfw_tool.wasm"
-v = "https://github.com/muuvmuuv/proto-plugins/releases/download/v_tool-v0.1.0/v_tool.wasm"
+v = "https://github.com/muuvmuuv/proto-plugins/releases/download/v_tool-v0.1.1/v_tool.wasm"
 yq = "https://github.com/muuvmuuv/proto-plugins/releases/download/yq_tool-v0.4.0/yq_tool.wasm"
 ```
 
@@ -89,6 +89,9 @@ v = "github://muuvmuuv/proto-plugins/v_tool"
 
 [tools.v]
 build-from-source = true
+
+[env]
+V_MACOS_V3_NO_FALLBACK = "1"
 ```
 
 A tag with a GitHub release installs its archive. A tag without one can only be
@@ -98,10 +101,20 @@ builds in about 90 seconds into V's own Git checkout at the tag. That tree is
 bootstrapped from the [vlang/vc](https://github.com/vlang/vc) snapshot of the
 newest v commit the tag contains, and V's `make local=1` builds it with the
 system `cc`. The build needs `git`, `make`, `cc` and `ar`, and downloads only the
-two repositories: no tcc and no fallback compiler. So that plain (non `-prod`)
-builds link without tcc's bundle, the plugin builds its Boehm GC archive from
-V's bundled sources. The resulting `v` lacks the FastC backend (`-b fastc`), which
-needs tcc's `libtcc.a`.
+two repositories, no tcc. So that plain (non `-prod`) builds link without tcc's
+bundle, the plugin builds its Boehm GC archive from V's bundled sources. The
+resulting `v` lacks the FastC backend (`-b fastc`), which needs tcc's `libtcc.a`.
+
+Recent weekly tags compile with V3, V's new compiler. When the C that V3
+generates fails to compile, V silently compiles again with V 0.5.2, which it
+downloads from GitHub when it is missing, so a build "on the weekly" can be a
+0.5.2 build. `V_MACOS_V3_NO_FALLBACK=1`, despite its name on every OS, turns that
+retry off, and a failed V3 build then fails. The `v` shim sets it, and the
+`[env]` entry above extends it to `proto run` and shells using `proto activate`.
+Calling `~/.proto/bin/v` directly bypasses both, so export it there yourself. At
+`weekly.2026.41`, V3 still rejects or miscompiles some code that 0.5.2 builds,
+and on Linux it cannot link any program with `cc`, as its unused-code pruning
+drops `array__get`, so installing that tag fails there.
 
 The lockfile checksum of a source build is the SHA-256 of the line
 `<v commit> <vc commit>`, so a moved tag or a different bootstrap fails the next

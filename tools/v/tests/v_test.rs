@@ -14,6 +14,9 @@ mod build_from_source {
     use proto_pdk_test_utils::*;
     use std::collections::HashMap;
 
+    // On Linux weekly.2026.41 fails V's own post-build check, upstream's `make` included:
+    // its unused-code pruning drops `array__get`, which the Linux backtrace code calls.
+    #[cfg(target_os = "macos")]
     generate_native_install_tests!("v", "weekly.2026.41", None, |config| {
         config.tool_config(HashMap::from([("build-from-source", true)]));
     });

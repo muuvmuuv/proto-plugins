@@ -5041,6 +5041,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "v_tool"
+version = "0.1.0"
+dependencies = [
+ "extism-pdk",
+ "proto_pdk",
+ "proto_pdk_test_utils",
+ "serde",
+ "starbase_sandbox",
+ "tokio",
+]
+
+[[package]]
 name = "valuable"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

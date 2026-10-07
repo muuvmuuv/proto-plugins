@@ -88,6 +88,20 @@
       ]
     },
     {
+      "id": "v",
+      "locator": "github://muuvmuuv/proto-plugins/v_tool",
+      "format": "wasm",
+      "name": "V",
+      "description": "A simple, fast, safe, compiled language for developing maintainable software. Builds weekly tags without a release from source when the project opts in.",
+      "author": "muuvmuuv",
+      "homepageUrl": "https://vlang.io",
+      "repositoryUrl": "https://github.com/muuvmuuv/proto-plugins",
+      "devicon": "c",
+      "bins": [
+        "v"
+      ]
+    },
+    {
       "id": "yq",
       "locator": "github://muuvmuuv/proto-plugins/yq_tool",
       "format": "wasm",

@@ -16,6 +16,7 @@ tools. Requires proto >= 0.57 / moon v2.
 | [Maestro](https://maestro.dev) | Mobile & web UI testing (requires Java) | `maestro_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=maestro_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=maestro_tool) |
 | [ripwire](https://github.com/redhat-et/ripwire) | Code map and change checker for coding agents (macOS/Linux only) | `ripwire_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=ripwire_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=ripwire_tool) |
 | [sfw](https://github.com/SocketDev/sfw-free) | Socket Firewall Free, a network security proxy for package managers | `sfw_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=sfw_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=sfw_tool) |
+| [V](https://vlang.io) | V compiler; weekly tags without a release build from source on opt-in (macOS/Linux only, see [V](#v)) | `v_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=v_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=v_tool) |
 | [yq](https://github.com/mikefarah/yq) | YAML/JSON/XML processor | `yq_tool` | [![release](https://img.shields.io/github/v/release/muuvmuuv/proto-plugins?filter=yq_tool-*&label=)](https://github.com/muuvmuuv/proto-plugins/releases?q=yq_tool) |
 
 ## Usage
@@ -31,6 +32,7 @@ lefthook = "github://muuvmuuv/proto-plugins/lefthook_tool"
 maestro = "github://muuvmuuv/proto-plugins/maestro_tool"
 ripwire = "github://muuvmuuv/proto-plugins/ripwire_tool"
 sfw = "github://muuvmuuv/proto-plugins/sfw_tool"
+v = "github://muuvmuuv/proto-plugins/v_tool"
 yq = "github://muuvmuuv/proto-plugins/yq_tool"
 ```
 
@@ -60,6 +62,7 @@ lefthook = "https://github.com/muuvmuuv/proto-plugins/releases/download/lefthook
 maestro = "https://github.com/muuvmuuv/proto-plugins/releases/download/maestro_tool-v0.2.0/maestro_tool.wasm"
 ripwire = "https://github.com/muuvmuuv/proto-plugins/releases/download/ripwire_tool-v0.1.0/ripwire_tool.wasm"
 sfw = "https://github.com/muuvmuuv/proto-plugins/releases/download/sfw_tool-v0.2.0/sfw_tool.wasm"
+v = "https://github.com/muuvmuuv/proto-plugins/releases/download/v_tool-v0.1.0/v_tool.wasm"
 yq = "https://github.com/muuvmuuv/proto-plugins/releases/download/yq_tool-v0.4.0/yq_tool.wasm"
 ```
 
@@ -71,6 +74,40 @@ plugin versions.
 > If you prefer the `github://` locator, set the `GITHUB_TOKEN` environment
 > variable in CI to get 5,000 requests/hour instead of 60. This also benefits
 > the plugins themselves, which call the GitHub API to resolve tool versions.
+
+### V
+
+V's release tags (`0.5.2`, and `0.5` for a minor release) and its weekly tags
+both install. proto versions must be semantic, so `weekly.2026.41` is an alias of
+version `2026.41.0`, and `latest` is the newest release, never a weekly tag:
+
+```toml
+v = "weekly.2026.41"
+
+[plugins]
+v = "github://muuvmuuv/proto-plugins/v_tool"
+
+[tools.v]
+build-from-source = true
+```
+
+A tag with a GitHub release installs its archive. A tag without one can only be
+built from source, which runs the plugin's build script with the host's tools, so
+it fails unless `[tools.v]` sets `build-from-source = true`. With it, the tag
+builds in about 90 seconds into V's own Git checkout at the tag. That tree is
+bootstrapped from the [vlang/vc](https://github.com/vlang/vc) snapshot of the
+newest v commit the tag contains, and V's `make local=1` builds it with the
+system `cc`. The build needs `git`, `make`, `cc` and `ar`, and downloads only the
+two repositories: no tcc and no fallback compiler. So that plain (non `-prod`)
+builds link without tcc's bundle, the plugin builds its Boehm GC archive from
+V's bundled sources. The resulting `v` lacks the FastC backend (`-b fastc`), which
+needs tcc's `libtcc.a`.
+
+The lockfile checksum of a source build is the SHA-256 of the line
+`<v commit> <vc commit>`, so a moved tag or a different bootstrap fails the next
+install. It is never the hash of a download. The release lookup uses the GitHub
+API; set `GITHUB_TOKEN` in CI to avoid its limit of 60 requests an hour. Musl
+and Windows are not supported.
 
 ## Development
 
@@ -145,6 +182,11 @@ require special handling:
   SHA-256 hash
 - **sfw** -- upstream publishes no checksum file, so the plugin relies on
   HTTPS to github.com for integrity
+- **v** -- no checksum file either; the plugin verifies each release archive
+  against the SHA-256 digest GitHub publishes for it in the Releases API.
+  Archives uploaded before GitHub computed digests (V 0.4.x and older) have none,
+  so proto hashes the download into its lockfile instead. Source builds are
+  checked by Git's object hashes and pinned in the lockfile, see [V](#v)
 
 ### Adding a new plugin
 

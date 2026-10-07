@@ -5,6 +5,7 @@ lefthook = "2.1.10"
 maestro = "2.8.0"
 ripwire = "0.6.0"
 sfw = "1.15.0"
+v = "0.5.2"
 yq = "4.53.3"
 
 [plugins]
@@ -15,4 +16,5 @@ lefthook = "file://./target/wasm32-wasip1/debug/lefthook_tool.wasm"
 maestro = "file://./target/wasm32-wasip1/debug/maestro_tool.wasm"
 ripwire = "file://./target/wasm32-wasip1/debug/ripwire_tool.wasm"
 sfw = "file://./target/wasm32-wasip1/debug/sfw_tool.wasm"
+v = "file://./target/wasm32-wasip1/debug/v_tool.wasm"
 yq = "file://./target/wasm32-wasip1/debug/yq_tool.wasm"

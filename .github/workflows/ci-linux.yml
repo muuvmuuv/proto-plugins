@@ -20,3 +20,7 @@ jobs:
         run: cargo build --target wasm32-wasip1
       - name: Run tests
         run: cargo test --test '*'
+        env:
+          # The v plugin queries GitHub's Releases API, which allows only 60
+          # unauthenticated requests an hour per IP, shared across runners.
+          GITHUB_TOKEN: ${{ github.token }}

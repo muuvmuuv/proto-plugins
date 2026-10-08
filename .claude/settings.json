@@ -12,7 +12,12 @@
       "Bash(gh release:*)",
       "Bash(gh pr:*)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(cargo test *)",
+      "Bash(cargo build *)",
+      "Bash(shasum *)",
+      "Bash(proto plugin *)",
+      "Bash(proto status *)"
     ]
   }
 }

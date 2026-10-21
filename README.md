@@ -140,7 +140,9 @@ just setup
 This will:
 
 1. Install the Rust toolchain and `wasm32-wasip1` target (via `rust-toolchain.toml`)
-2. Build all WASM plugins (needed for `.prototools` to resolve local `file://` plugins)
+2. Build all WASM plugins in release mode (needed for `.prototools` to resolve
+   local `file://` plugins; rerun `just build-release` to try a plugin change in
+   your shell)
 3. Install pinned tool versions via `proto use`
 4. Install [lefthook](https://github.com/evilmartians/lefthook) git hooks
 

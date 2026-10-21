@@ -10,7 +10,7 @@ export PROTO_LOOKUP_DIR := if os_family() == "windows" { "" } else { `dirname "$
 # Initial project setup: install dependencies, build plugins, and configure git hooks
 setup:
     rustup show
-    cargo build --target wasm32-wasip1
+    cargo build --target wasm32-wasip1 --release
     proto use
     lefthook install
 

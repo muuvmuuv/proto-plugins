@@ -8,13 +8,16 @@ sfw = "1.15.0"
 v = "0.5.2"
 yq = "4.53.3"
 
+# Release builds on purpose: proto's shell hook loads every plugin on each
+# prompt, and freeing the debug WASMs stalls each prompt for ~3 s on macOS
+# (wasmtime deregisters every JIT frame one by one). `just setup` builds them.
 [plugins]
-gitleaks = "file://./target/wasm32-wasip1/debug/gitleaks_tool.wasm"
-jq = "file://./target/wasm32-wasip1/debug/jq_tool.wasm"
-just = "file://./target/wasm32-wasip1/debug/just_tool.wasm"
-lefthook = "file://./target/wasm32-wasip1/debug/lefthook_tool.wasm"
-maestro = "file://./target/wasm32-wasip1/debug/maestro_tool.wasm"
-ripwire = "file://./target/wasm32-wasip1/debug/ripwire_tool.wasm"
-sfw = "file://./target/wasm32-wasip1/debug/sfw_tool.wasm"
-v = "file://./target/wasm32-wasip1/debug/v_tool.wasm"
-yq = "file://./target/wasm32-wasip1/debug/yq_tool.wasm"
+gitleaks = "file://./target/wasm32-wasip1/release/gitleaks_tool.wasm"
+jq = "file://./target/wasm32-wasip1/release/jq_tool.wasm"
+just = "file://./target/wasm32-wasip1/release/just_tool.wasm"
+lefthook = "file://./target/wasm32-wasip1/release/lefthook_tool.wasm"
+maestro = "file://./target/wasm32-wasip1/release/maestro_tool.wasm"
+ripwire = "file://./target/wasm32-wasip1/release/ripwire_tool.wasm"
+sfw = "file://./target/wasm32-wasip1/release/sfw_tool.wasm"
+v = "file://./target/wasm32-wasip1/release/v_tool.wasm"
+yq = "file://./target/wasm32-wasip1/release/yq_tool.wasm"

@@ -1595,7 +1595,7 @@ dependencies = [
 
 [[package]]
 name = "gitleaks_tool"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
@@ -2240,7 +2240,7 @@ dependencies = [
 
 [[package]]
 name = "jq_tool"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
@@ -2462,7 +2462,7 @@ dependencies = [
 
 [[package]]
 name = "maestro_tool"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
@@ -3566,7 +3566,7 @@ dependencies = [
 
 [[package]]
 name = "ripwire_tool"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
@@ -3996,7 +3996,7 @@ dependencies = [
 
 [[package]]
 name = "sfw_tool"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
@@ -5042,7 +5042,7 @@ dependencies = [
 
 [[package]]
 name = "v_tool"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
@@ -6111,7 +6111,7 @@ dependencies = [
 
 [[package]]
 name = "yq_tool"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "extism-pdk",
  "proto_pdk",

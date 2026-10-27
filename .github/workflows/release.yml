@@ -25,6 +25,7 @@ jobs:
         with:
           artifacts: builds/*
           artifactErrorsFailBuild: true
+          immutableCreate: true
           body: ${{ steps.build.outputs.changelog-entry }}
           makeLatest: false
           prerelease: ${{ contains(github.ref_name, '-alpha') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-rc') }}

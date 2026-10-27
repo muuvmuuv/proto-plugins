@@ -57,8 +57,8 @@ To avoid this, you can reference the WASM files directly by URL:
 [plugins]
 gitleaks = "https://github.com/muuvmuuv/proto-plugins/releases/download/gitleaks_tool-v0.3.0/gitleaks_tool.wasm"
 jq = "https://github.com/muuvmuuv/proto-plugins/releases/download/jq_tool-v0.3.0/jq_tool.wasm"
-just = "https://github.com/muuvmuuv/proto-plugins/releases/download/just_tool-v0.3.0/just_tool.wasm"
-lefthook = "https://github.com/muuvmuuv/proto-plugins/releases/download/lefthook_tool-v0.2.0/lefthook_tool.wasm"
+just = "https://github.com/muuvmuuv/proto-plugins/releases/download/just_tool-v0.3.1/just_tool.wasm"
+lefthook = "https://github.com/muuvmuuv/proto-plugins/releases/download/lefthook_tool-v0.2.1/lefthook_tool.wasm"
 maestro = "https://github.com/muuvmuuv/proto-plugins/releases/download/maestro_tool-v0.2.0/maestro_tool.wasm"
 ripwire = "https://github.com/muuvmuuv/proto-plugins/releases/download/ripwire_tool-v0.1.0/ripwire_tool.wasm"
 sfw = "https://github.com/muuvmuuv/proto-plugins/releases/download/sfw_tool-v0.2.0/sfw_tool.wasm"
